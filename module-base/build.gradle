@@ -1,0 +1,41 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion baseAndroid.compileSdkVersion
+    defaultConfig {
+        minSdkVersion baseAndroid.minSdkVersion
+        targetSdkVersion baseAndroid.targetSdkVersion
+        versionCode baseAndroid.versionCode
+        versionName baseAndroid.versionName
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "IS_DEBUG_TYPE", "$IS_DEBUG_TYPE"
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "IS_DEBUG_TYPE", "$IS_DEBUG_TYPE"
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //api 引用的内用是共享的;implementation引用的东西是只能被当前pro使用  注意 如果不使用api就会引起包版本不一致的冲突
+    api baseDependencies.appcompat
+    api baseDependencies.constraintlayout
+    api baseDependencies.arouterApi
+    annotationProcessor baseDependencies.arouterCompiler
+
+}

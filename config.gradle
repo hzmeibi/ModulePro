@@ -1,0 +1,66 @@
+ext {
+    // 是否为debug状态
+    // true为测试状态 即各个模块都可以独立运行测试 ; false为打包状态 即各个module均为library
+    IS_DEBUG_TYPE = false
+
+    //true SH project false 为HK project
+    IS_SH_PROJECT = true
+
+    if (IS_DEBUG_TYPE) {
+        //应用类型 application /  library
+        applicationType = "com.android.application"
+        //AndroidManifest.xml
+        manifestPath = "src/main/AndroidManifest.xml"
+    } else {
+        applicationType = "com.android.library"
+        manifestPath = "src/main/release/AndroidManifest.xml"
+    }
+
+    //android构建版本
+    baseAndroid = [
+            compileSdkVersion: 26,
+            targetSdkVersion : 26,
+            minSdkVersion    : 14,
+            buildToolsVersion: "26.1.0"
+    ]
+    //不同项目对应不同资源路径
+    if (IS_SH_PROJECT) {
+        //SH pro
+        baseVersion = [
+                applicationId: "com.module.sh",
+                versionCode  : 1,
+                versionName  : "0.0.1"
+        ]
+        //资源文件配置
+        baseResource = [
+                res    : "src/main/res-sh/res",
+                assets : "src/main/res-sh/assets",
+                jniLibs: "src/main/res-sh/jniLibs",
+                libs   : "src/main/res-sh/libs"
+        ]
+
+    } else {
+        baseVersion = [
+                applicationId: "com.module.hk",
+                versionCode  : 1,
+                versionName  : "0.0.1"
+        ]
+
+        baseResource = [
+                res    : "src/main/res-hk/res",
+                assets : "src/main/res-hk/assets",
+                jniLibs: "src/main/res-hk/jniLibs",
+                libs   : "src/main/res-hk/libs"
+        ]
+    }
+    //library
+    baseDependencies = [
+            appcompat       : "com.android.support:appcompat-v7:26.1.0",
+            supportv4       : "com.android.support:support-v4:26.1.0",
+            supportv7       : "com.android.support:appcompat-v7:26.1.0",
+            recyclerviewv7  : 'com.android.support:recyclerview-v7:26.1.0',
+            constraintlayout: 'com.android.support.constraint:constraint-layout:1.0.2',
+            arouterApi      : 'com.alibaba:arouter-api:1.3.1',
+            arouterCompiler : 'com.alibaba:arouter-compiler:1.1.4'
+    ]
+}

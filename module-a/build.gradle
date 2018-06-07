@@ -1,0 +1,49 @@
+apply plugin: applicationType
+
+android {
+    compileSdkVersion baseAndroid.compileSdkVersion
+    defaultConfig {
+        minSdkVersion baseAndroid.minSdkVersion
+        targetSdkVersion baseAndroid.targetSdkVersion
+        versionCode baseVersion.versionCode
+        versionName baseVersion.versionName
+        resourcePrefix 'a_'
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+    sourceSets {
+        main {
+            manifest.srcFile manifestPath
+            res.srcDirs baseResource.res
+            assets.srcDirs baseResource.assets
+            jniLibs.srcDirs baseResource.jniLibs
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "IS_DEBUG_TYPE", "$IS_DEBUG_TYPE"
+            buildConfigField "boolean", "IS_SH_PROJECT", "$IS_SH_PROJECT"
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "IS_DEBUG_TYPE", "$IS_DEBUG_TYPE"
+            buildConfigField "boolean", "IS_SH_PROJECT", "$IS_SH_PROJECT"
+        }
+    }
+
+}
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: "$baseResource.libs")
+    //router
+    api baseDependencies.arouterApi
+    annotationProcessor baseDependencies.arouterCompiler
+    api project(':module-base')
+}
