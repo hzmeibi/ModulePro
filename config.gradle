@@ -28,8 +28,8 @@ ext {
         //SH pro
         baseVersion = [
                 applicationId: "com.module.sh",
-                versionCode  : 1,
-                versionName  : "0.0.1"
+                versionCode  : APP_VERSION_CODE as int,
+                versionName  : APP_VERSION_NAME
         ]
         //资源文件配置
         baseResource = [

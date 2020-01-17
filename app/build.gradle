@@ -6,8 +6,8 @@ android {
         applicationId baseVersion.applicationId
         minSdkVersion baseAndroid.minSdkVersion
         targetSdkVersion baseAndroid.targetSdkVersion
-        versionCode baseVersion.versionCode
-        versionName baseVersion.versionName
+        versionCode APP_VERSION_CODE as int
+        versionName APP_VERSION_NAME
 
         javaCompileOptions {
             annotationProcessorOptions {
