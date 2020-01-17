@@ -42,8 +42,8 @@ ext {
     } else {
         baseVersion = [
                 applicationId: "com.module.hk",
-                versionCode  : 1,
-                versionName  : "0.0.1"
+                versionCode  : APP_VERSION_CODE,
+                versionName  : APP_VERSION_NAME
         ]
 
         baseResource = [
