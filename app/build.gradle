@@ -24,12 +24,22 @@ android {
         }
     }
 
+    signingConfigs {//签名信息 可以自定义很多
+        releaseConfig {
+            storeFile file("key_test.keystore")
+            storePassword "android"
+            keyAlias "android"
+            keyPassword "android"
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "boolean", "IS_DEBUG_TYPE", "$IS_DEBUG_TYPE"
             buildConfigField "boolean", "IS_SH_PROJECT", "$IS_SH_PROJECT"
+            signingConfig signingConfigs.releaseConfig
         }
         debug {
             minifyEnabled false
@@ -38,6 +48,8 @@ android {
             buildConfigField "boolean", "IS_SH_PROJECT", "$IS_SH_PROJECT"
         }
     }
+
+
 
 }
 
